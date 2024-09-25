@@ -4,22 +4,7 @@ import { Button } from "../actors/buttons/button_abstract";
 export class MainMenu extends ex.Scene {
   //adds buttons to the current scene
   public onInitialize(_engine: ex.Engine): void {
-    const play = new Button(597, 367, true, 0.5, 60, "Play", () => {
-      _engine.goToScene("diff");
-      this.clear();
-    });
-    this.add(play);
-    const options = new Button(597, 417, true, 0.5, 60, "Options", () => {});
-    this.add(options);
-    const achievements = new Button(597, 467, true, 0.5, 60, "Medals", () => {
-      _engine.goToScene("achievements");
-      this.clear();
-    });
-    this.add(achievements);
-    const credits = new Button(597, 517, true, 0.5, 60, "Credits", () => {});
-    this.add(credits);
-    const exit = new Button(597, 567, true, 0.5, 60, "Exit", () => {});
-    this.add(exit);
+    
   }
 
   public onActivate(_context: ex.SceneActivationContext<unknown>): void {
@@ -60,5 +45,22 @@ export class MainMenu extends ex.Scene {
       announcement2.graphics.use(text2);
       this.add(announcement2);
     }
+
+    const play = new Button(597, 367, true, 0.5, 60, "Play", () => {
+      this.engine.goToScene("diff");
+      this.clear();
+    });
+    this.add(play);
+    const options = new Button(597, 417, true, 0.5, 60, "Options", () => {});
+    this.add(options);
+    const achievements = new Button(597, 467, true, 0.5, 60, "Medals", () => {
+      this.engine.goToScene("achievements");
+      this.clear();
+    });
+    this.add(achievements);
+    const credits = new Button(597, 517, true, 0.5, 60, "Credits", () => {});
+    this.add(credits);
+    const exit = new Button(597, 567, true, 0.5, 60, "Exit", () => {});
+    this.add(exit);
   }
 }

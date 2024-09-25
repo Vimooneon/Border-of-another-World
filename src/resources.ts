@@ -15,13 +15,16 @@ const Images = {
   Forest: new ex.ImageSource("./images/Forest.png"),
   //tiles
   TileGrass: new ex.ImageSource("./images/TileGrass.png"),
+  Grass: new ex.ImageSource("./images/Grass.png"),
   TileDirt: new ex.ImageSource("./images/TileHalfGrass.png"),
   TileGrassNStones: new ex.ImageSource("./images/TileStoneGrass.png"),
   TileStone: new ex.ImageSource("./images/TileStone.png"),
   TileStoneWall: new ex.ImageSource("./images/TileStoneWall.png"),
+  ChestLadybug: new ex.ImageSource("./images/Ladybug.png"),
   //heroes
   Hero: new ex.ImageSource("./images/Hero.png"),
   HeroWalk: new ex.ImageSource("./images/HeroWalk.png"),
+  HeroWalkChibi: new ex.ImageSource("./images/HeroWalkChibi.png"),
   HeroHand: new ex.ImageSource("./images/HeroHand.png"),
   //enemies
   Grasshopper: new ex.ImageSource("./images/GrasshopperJump.png"),

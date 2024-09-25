@@ -15,6 +15,10 @@ import { swordBaton } from "../actors/swords";
 //coordinates formula:
 //x = (2388-(2388%376)/2-376)*scale
 //y = ((1668%376)/2+376*enemy[0,1,2])*scale
+
+const sidemove = (2388-world1.tileSize*11);
+const upmove = (1668-world1.tileSize*8);
+
 export class Wave {
   public enemies: Enemy[] = [];
   loc = 317; //y coordinate of the first enemy
@@ -39,9 +43,9 @@ export class Wave {
 
 //a tile is a 376*376 pixels square, that is either a walkable through background or an unwalkable obstacle(wall, enemy, chest, diary with text)
 export class Tile extends ex.Actor {
-  image: ex.Sprite;
+  image?: ex.Sprite;
   constructor(
-    image: ex.Sprite,
+    image?: ex.Sprite,
     walkable?: boolean, //default: walkable
     image2?: ex.Sprite, //optional front sprite
     method?: (t: Tile) => any //method activated on collision
@@ -50,15 +54,16 @@ export class Tile extends ex.Actor {
     if (walkable != undefined) {
       //only add collision if not walkable
       if (!walkable) {
-        config.height = 376;
-        config.width = 376;
+        config.height = world1.tileSize;
+        config.width = world1.tileSize;
         config.collisionType = ex.CollisionType.Fixed;
-        config.collider = ex.Shape.Box(376, 376, ex.Vector.Zero);
+        config.collider = ex.Shape.Box(world1.tileSize, world1.tileSize, ex.Vector.Zero);
       }
     }
     super(config);
     //adds an optional front sprite
     if (image2 != undefined) {
+      image2.scale = ex.vec(world1.tileSize/376, world1.tileSize/376)
       this.graphics.layers.create({
         name: "foreground",
         order: 1,
@@ -78,7 +83,9 @@ export class Tile extends ex.Actor {
 
   onInitialize(_engine: ex.Engine): void {
     this.graphics.anchor = ex.Vector.Zero;
-    this.graphics.use(this.image);
+    if (this.image != undefined) {
+      this.graphics.use(this.image);
+    }
   }
 
   public makeWalkable() {
@@ -106,8 +113,7 @@ export class World extends ex.Scene {
     this.WorldGenerator();
     //loads current map
     this.loadMap();
-    this.hero.scale = ex.vec(0.5, 0.5);
-    this.hero.pos = ex.vec(597, 417);
+    this.hero.pos = ex.vec(1040, 360);
     this.add(this.hero);
     var stats = new Button(100, 50, true, 0.5, 60, "Stats", () => {
       _engine.goToScene("stats", [this.level, this.xp]);
@@ -166,18 +172,20 @@ export class World extends ex.Scene {
     }
   }
 
+
+  
   //if tiles were already created unkills them, otherwise creates new and adds to the scene/world/game
   public createMap() {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 8; i++) {
       //row
-      for (let i2 = 0; i2 < 7; i2++) {
+      for (let i2 = 0; i2 < 11; i2++) {
         //collum
-        if (this.map[i * 7 + i2].isKilled()) {
-          this.map[i * 7 + i2].unkill();
-          this.add(this.map[i * 7 + i2]);
+        if (this.map[i * 11 + i2].isKilled()) {
+          this.map[i * 11 + i2].unkill();
+          this.add(this.map[i * 11 + i2]);
         } else {
-          this.map[i * 7 + i2].pos = ex.vec(i2 * 188 - 66, i * 188 - 82);
-          this.add(this.map[i * 7 + i2]);
+          this.map[i * 11 + i2].pos = ex.vec(i2 * world1.tileSize/2, i * world1.tileSize/2);
+          this.add(this.map[i * 11 + i2]);
         }
       }
     }

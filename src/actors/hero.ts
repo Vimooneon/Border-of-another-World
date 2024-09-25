@@ -3,12 +3,23 @@ import { Images } from "../resources";
 import { Enemy } from "./enemy_abstract";
 import { damage } from "./damage";
 import { Equipment } from "./equipment_abstract";
+import { tileSize } from "../maps";
 
 const heroWalkSpriteSheet = ex.SpriteSheet.fromImageSource({
   image: Images.HeroWalk,
   grid: {
     rows: 3,
     columns: 3,
+    spriteHeight: 376,
+    spriteWidth: 376,
+  },
+});
+
+const heroWalkChibiSpriteSheet = ex.SpriteSheet.fromImageSource({
+  image: Images.HeroWalkChibi,
+  grid: {
+    rows: 2,
+    columns: 4,
     spriteHeight: 376,
     spriteWidth: 376,
   },
@@ -24,6 +35,38 @@ const heroDefault = new ex.Sprite({
   },
 });
 
+const heroChibiDefault = new ex.Sprite({
+  image: Images.HeroWalkChibi,
+  sourceView: {
+    x: 376,
+    y: 0,
+    width: 376,
+    height: 376,
+  },
+});
+
+const heroChibiRightDefault = new ex.Sprite({
+  image: Images.HeroWalkChibi,
+  sourceView: {
+    x: 0,
+    y: 376,
+    width: 376,
+    height: 376,
+  },
+});
+
+const heroChibiLeftDefault = new ex.Sprite({
+  image: Images.HeroWalkChibi,
+  sourceView: {
+    x: 376,
+    y: 0,
+    width: 376,
+    height: 376,
+  },
+});
+
+var stand: ex.Sprite
+
 const animsp = 100;
 
 const walkAnim = ex.Animation.fromSpriteSheet(
@@ -31,6 +74,27 @@ const walkAnim = ex.Animation.fromSpriteSheet(
   ex.range(0, 8),
   animsp,
   ex.AnimationStrategy.Freeze
+);
+
+const walkChibiAnim = ex.Animation.fromSpriteSheet(
+  heroWalkChibiSpriteSheet,
+  ex.range(0, 3),
+  animsp,
+  ex.AnimationStrategy.Loop
+);
+
+const walkChibiLeftAnim = ex.Animation.fromSpriteSheet(
+  heroWalkChibiSpriteSheet,
+  ex.range(0, 3),
+  animsp,
+  ex.AnimationStrategy.Loop
+);
+
+const walkChibiRightAnim = ex.Animation.fromSpriteSheet(
+  heroWalkChibiSpriteSheet,
+  ex.range(4, 7),
+  animsp,
+  ex.AnimationStrategy.Loop
 );
 
 export class PlayerInBattle extends Enemy {
@@ -228,11 +292,11 @@ export class PlayerOutside extends ex.Actor {
 
   constructor() {
     super({
-      width: 188,
-      height: 376,
+      width: tileSize/2,
+      height: tileSize,
       collider: ex.Shape.Box(
-        188,
-        376
+        tileSize/2,
+        tileSize
         //new ex.Vector(0.5, 0.5),
         //new ex.Vector(0, 4)
       ),
@@ -241,13 +305,14 @@ export class PlayerOutside extends ex.Actor {
   }
 
   onInitialize() {
-    this.graphics.add(heroDefault);
-    let front = new ex.Actor({ name: "front" });
+    stand = heroChibiDefault
+    /*let front = new ex.Actor({ name: "front" });
     front.graphics.use(Images.HeroHand.toSprite());
     front.pos = ex.vec(0, -80);
     front.graphics.anchor = ex.vec(0.5, 0.3);
     front.z = 1;
-    this.addChild(front);
+    this.addChild(front);*/
+    this.scale=ex.vec(0.25, 0.25)
   }
 
   public update(engine: ex.Engine, delta: number) {
@@ -258,12 +323,16 @@ export class PlayerOutside extends ex.Actor {
       engine.input.keyboard.isHeld(ex.Keys.W) ||
       engine.input.keyboard.isHeld(ex.Keys.Up)
     ) {
+      this.graphics.use(walkChibiAnim);
+      stand = heroChibiDefault
       this.vel.y = -1;
     }
     if (
       engine.input.keyboard.isHeld(ex.Keys.S) ||
       engine.input.keyboard.isHeld(ex.Keys.Down)
     ) {
+      this.graphics.use(walkChibiAnim);
+      stand = heroChibiDefault
       this.vel.y = 1;
     }
     if (
@@ -271,16 +340,20 @@ export class PlayerOutside extends ex.Actor {
       engine.input.keyboard.isHeld(ex.Keys.Right)
     ) {
       this.vel.x = 1;
+      this.graphics.use(walkChibiRightAnim)
+      stand = heroChibiRightDefault
     }
     if (
       engine.input.keyboard.isHeld(ex.Keys.A) ||
       engine.input.keyboard.isHeld(ex.Keys.Left)
     ) {
       this.vel.x = -1;
+      stand = heroChibiLeftDefault
+      this.graphics.use(walkChibiLeftAnim)
+      
     }
     if (this.vel.x != 0 || this.vel.y != 0) {
-      this.graphics.use(walkAnim);
-      if (walkAnim.isPlaying) {
+      /*if (walkAnim.isPlaying) {
         for (let i = 0; i < this.children.length; i++) {
           if (this.children[i].name == "front") {
             if (walkAnim.currentFrameIndex == 9)
@@ -332,12 +405,13 @@ export class PlayerOutside extends ex.Actor {
       }
       if (walkAnim.done) {
         walkAnim.reset();
-      }
+      }*/
       this.vel.normalize();
       this.vel.x *= playerSpeed;
       this.vel.y *= playerSpeed;
     } else {
-      this.graphics.use(heroDefault);
+
+      this.graphics.use(stand);
     }
 
     super.update(engine, delta);

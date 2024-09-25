@@ -7,49 +7,57 @@ import { RhinocerosBeetle } from "./actors/rhinoceros_beetle";
 import { Achievements } from "./scenes/achievements";
 import { Bee } from "./actors/bee";
 import { Grasshopper } from "./actors/grasshopper";
+import { chest } from "./actors/chest_abstract";
 
-const grass = new ex.Sprite({ image: Images.TileGrass });
-const dirt = new ex.Sprite({ image: Images.TileDirt });
-const stone = new ex.Sprite({ image: Images.TileStone });
-const stoneWall = new ex.Sprite({ image: Images.TileStoneWall });
+export const tileSize = 208; //208
+
+const grass = undefined; //new ex.Sprite({ image: Images.TileGrass, scale:ex.vec(tileSize/376, tileSize/376)})
+const Grass = new ex.Sprite({ image: Images.Grass});
+//const dirt = new ex.Sprite({ image: Images.TileDirt });
+const stone = new ex.Sprite({ image: Images.TileStone, scale:ex.vec(tileSize/376, tileSize/376) });
+const stoneWall = new ex.Sprite({ image: Images.TileStoneWall, scale:ex.vec(tileSize/376, tileSize/376) });
+
+
 
 var world1Map: Tile[][] = [];
 
 //world builder; probably looks messy and is that way; hopefully will be better in the future
 //divides the worldmap into smaller maps - "rooms"(5(height)*7(width) tiles large map) and fills them with according tiles
 export function WorldGenerator(world: World) {
-  world1Map.push(map0(world));
-  world1Map.push(map1(world));
-  world1Map.push(map2(world));
+  world1Map.push(map0());
+  world1Map.push(map1());
+  world1Map.push(map2());
   world1Map.push(map3(world));
-  world1Map.push(map4(world));
-  world1Map.push(map5(world));
+  world1Map.push(map4());
+  world1Map.push(map5());
   world1Map.push(map6(world));
   world1Map.push(map7(world));
   world1Map.push(map8(world));
-  world1Map.push(map9(world));
-  world1Map.push(map10(world));
-  world1Map.push(map11(world));
-  world1Map.push(map12(world));
-  world1Map.push(map13(world));
+  world1Map.push(map9());
+  world1Map.push(map10());
+  world1Map.push(map11());
+  world1Map.push(map12());
+  world1Map.push(map13());
   world1Map.push(map14(world));
-  world1Map.push(map15(world));
+  world1Map.push(map15());
   world1Map.push(map16(world));
-  world1Map.push(map17(world));
+  world1Map.push(map17());
   world1Map.push(map18(world));
   world1Map.push(map19(world));
-  world1Map.push(map20(world));
-  world1Map.push(map21(world));
+  world1Map.push(map20());
+  world1Map.push(map21());
   return world1Map;
 }
 
 //a bad solution to creating an empty map?
-export function map0(world: World) {
+export function map0() {
+  //world: World
   let tempmap: Tile[] = [];
   return tempmap;
 }
 
-export function map1(world: World) {
+export function map1() {
+  //world: World
   let tempmap: Tile[] = [];
   for (let i2 = 0; i2 < 7; i2++) {
     tempmap.push(new Tile(stoneWall, false));
@@ -62,10 +70,14 @@ export function map1(world: World) {
       tempmap.push(new Tile(grass));
     }
   }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
-export function map2(world: World) {
+export function map2() {
+  //world: World
   let tempmap: Tile[] = [];
   for (let i2 = 0; i2 < 7; i2++) {
     tempmap.push(new Tile(stoneWall, false));
@@ -77,6 +89,9 @@ export function map2(world: World) {
     for (let i2 = 0; i2 < 2; i2++) {
       tempmap.push(new Tile(stoneWall, false));
     }
+  }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
   }
   return tempmap;
 }
@@ -151,10 +166,14 @@ export function map3(world: World) {
   for (let i2 = 0; i2 < 3; i2++) {
     tempmap.push(new Tile(stoneWall, false));
   }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
-export function map4(world: World) {
+export function map4() {
+  //world: World
   let tempmap: Tile[] = [];
   for (let i2 = 0; i2 < 7; i2++) {
     tempmap.push(new Tile(stoneWall, false));
@@ -179,10 +198,14 @@ export function map4(world: World) {
   for (let i2 = 0; i2 < 1; i2++) {
     tempmap.push(new Tile(stoneWall, false));
   }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
-export function map5(world: World) {
+export function map5() {
+  //world: World
   let tempmap: Tile[] = [];
   for (let i2 = 0; i2 < 7; i2++) {
     tempmap.push(new Tile(stoneWall, false));
@@ -195,18 +218,34 @@ export function map5(world: World) {
       tempmap.push(new Tile(grass));
     }
   }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
 export function map6(world: World) {
   let tempmap: Tile[] = [];
-  tempmap.push(new Tile(stoneWall, false));
+  tempmap.push(new Tile(Grass, false, stoneWall));
   for (let i2 = 0; i2 < 6; i2++) {
     tempmap.push(new Tile(grass));
   }
-  for (let i2 = 0; i2 < 3; i2++) {
+  for (let i2 = 0; i2 < 2; i2++) {
     tempmap.push(new Tile(grass));
   }
+  tempmap.push(new Tile(grass, false, new ex.Sprite({
+    image: Images.ChestLadybug,
+    sourceView: {
+      x: 0,
+      y: 0,
+      width: 376,
+      height: 376,
+    },
+}), (t)=>{
+    t.makeWalkable();
+    t.graphics.layers.get("foreground").hide();
+    world.add(new chest(t.getGlobalPos().x+94, t.getGlobalPos().y+94, "ladybug", true))
+  }));
   tempmap.push(
     new Tile(grass, false, new ex.Sprite({ image: Images.Journal }), () => {
       //yes this is even worse example of the previous occurance, will be reamde!
@@ -263,6 +302,9 @@ export function map6(world: World) {
       tempmap.push(new Tile(grass));
     }
   }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
@@ -292,6 +334,9 @@ export function map7(world: World) {
       tempmap.push(new Tile(grass));
     }
     tempmap.push(new Tile(stoneWall, false));
+  }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
   }
   return tempmap;
 }
@@ -347,11 +392,14 @@ export function map8(world: World) {
   /*for (let i2 = 0; i2 < 2; i2++) {
     tempmap.push(new Tile(stone));
   }*/
-
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
-export function map9(world: World) {
+export function map9() {
+  //world: World
   let tempmap: Tile[] = [];
 
   //row1
@@ -387,11 +435,14 @@ export function map9(world: World) {
     tempmap.push(new Tile(grass));
   }
   tempmap.push(new Tile(stoneWall, false));
-
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
-export function map10(world: World) {
+export function map10() {
+  //world: World
   let tempmap: Tile[] = [];
   for (let i = 0; i < 5; i++) {
     for (let i2 = 0; i2 < 1; i2++) {
@@ -404,17 +455,22 @@ export function map10(world: World) {
   return tempmap;
 }
 
-export function map11(world: World) {
+export function map11() {
+  //world: World
   let tempmap: Tile[] = [];
   for (let i = 0; i < 5; i++) {
     for (let i2 = 0; i2 < 7; i2++) {
       tempmap.push(new Tile(grass));
     }
   }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
-export function map12(world: World) {
+export function map12() {
+  //world: World
   let tempmap: Tile[] = [];
   for (let i = 0; i < 5; i++) {
     for (let i2 = 0; i2 < 6; i2++) {
@@ -424,10 +480,14 @@ export function map12(world: World) {
       tempmap.push(new Tile(stoneWall, false));
     }
   }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
-export function map13(world: World) {
+export function map13() {
+  //world: World
   let tempmap: Tile[] = [];
   //row 1
   for (let i2 = 0; i2 < 2; i2++) {
@@ -456,6 +516,9 @@ export function map13(world: World) {
   //row 5
   for (let i2 = 0; i2 < 7; i2++) {
     tempmap.push(new Tile(stoneWall, false));
+  }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
   }
   return tempmap;
 }
@@ -505,10 +568,14 @@ export function map14(world: World) {
       tempmap.push(new Tile(stoneWall, false));
     }
   }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
-export function map15(world: World) {
+export function map15() {
+  //world: World
   let tempmap: Tile[] = [];
   for (let i = 0; i < 4; i++) {
     for (let i2 = 0; i2 < 1; i2++) {
@@ -520,6 +587,9 @@ export function map15(world: World) {
   }
   for (let i2 = 0; i2 < 7; i2++) {
     tempmap.push(new Tile(stoneWall, false));
+  }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
   }
   return tempmap;
 }
@@ -543,10 +613,14 @@ export function map16(world: World) {
   for (let i2 = 0; i2 < 5; i2++) {
     tempmap.push(new Tile(stoneWall, false));
   }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
-export function map17(world: World) {
+export function map17() {
+  //world: World
   let tempmap: Tile[] = [];
   for (let i2 = 0; i2 < 6; i2++) {
     tempmap.push(new Tile(grass));
@@ -559,6 +633,9 @@ export function map17(world: World) {
   }
   for (let i2 = 0; i2 < 7; i2++) {
     tempmap.push(new Tile(stoneWall, false));
+  }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
   }
   return tempmap;
 }
@@ -621,6 +698,9 @@ export function map18(world: World) {
   for (let i2 = 0; i2 < 7; i2++) {
     tempmap.push(new Tile(stoneWall, false));
   }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
@@ -669,15 +749,20 @@ export function map19(world: World) {
   for (let i2 = 0; i2 < 7; i2++) {
     tempmap.push(new Tile(stoneWall, false));
   }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
+  }
   return tempmap;
 }
 
-export function map20(world: World) {
+export function map20() {
+  //world: World
   let tempmap: Tile[] = [];
   return tempmap;
 }
 
-export function map21(world: World) {
+export function map21() {
+  //world: World
   let tempmap: Tile[] = [];
   tempmap.push(new Tile(stoneWall, false));
   tempmap.push(new Tile(stone));
@@ -705,6 +790,9 @@ export function map21(world: World) {
   tempmap.push(new Tile(stoneWall, false));
   for (let i2 = 0; i2 < 7; i2++) {
     tempmap.push(new Tile(stoneWall, false));
+  }
+  for (let i2 = 0; i2 < 53; i2++) {
+    tempmap.push(new Tile(grass));
   }
   return tempmap;
 }
