@@ -16,8 +16,8 @@ import { swordBaton } from "../actors/swords";
 //x = (2388-(2388%376)/2-376)*scale
 //y = ((1668%376)/2+376*enemy[0,1,2])*scale
 
-const sidemove = (2388-world1.tileSize*11);
-const upmove = (1668-world1.tileSize*8);
+//const sidemove = (2388-world1.tileSize*11);
+//const upmove = (1668-world1.tileSize*8);
 
 export class Wave {
   public enemies: Enemy[] = [];
@@ -176,16 +176,18 @@ export class World extends ex.Scene {
   
   //if tiles were already created unkills them, otherwise creates new and adds to the scene/world/game
   public createMap() {
-    for (let i = 0; i < 8; i++) {
+    let height = 5; //8
+    let width = 7; //11
+    for (let i = 0; i < height; i++) {
       //row
-      for (let i2 = 0; i2 < 11; i2++) {
+      for (let i2 = 0; i2 < width; i2++) {
         //collum
-        if (this.map[i * 11 + i2].isKilled()) {
-          this.map[i * 11 + i2].unkill();
-          this.add(this.map[i * 11 + i2]);
+        if (this.map[i * width + i2].isKilled()) {
+          this.map[i * width + i2].unkill();
+          this.add(this.map[i * width + i2]);
         } else {
-          this.map[i * 11 + i2].pos = ex.vec(i2 * world1.tileSize/2, i * world1.tileSize/2);
-          this.add(this.map[i * 11 + i2]);
+          this.map[i * width + i2].pos = ex.vec(i2 * world1.tileSize/2, i * world1.tileSize/2);
+          this.add(this.map[i * width + i2]);
         }
       }
     }

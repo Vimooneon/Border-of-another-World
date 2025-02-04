@@ -9,9 +9,9 @@ import { Bee } from "./actors/bee";
 import { Grasshopper } from "./actors/grasshopper";
 import { chest } from "./actors/chest_abstract";
 
-export const tileSize = 208; //208
+export const tileSize = 376; //208
 
-const grass = undefined; //new ex.Sprite({ image: Images.TileGrass, scale:ex.vec(tileSize/376, tileSize/376)})
+const grass = new ex.Sprite({ image: Images.TileGrass, scale:ex.vec(tileSize/376, tileSize/376)}); //
 const Grass = new ex.Sprite({ image: Images.Grass});
 //const dirt = new ex.Sprite({ image: Images.TileDirt });
 const stone = new ex.Sprite({ image: Images.TileStone, scale:ex.vec(tileSize/376, tileSize/376) });
@@ -263,7 +263,7 @@ export function map6(world: World) {
           "\n" +
           "It seems this world is inhabited by enormous bugs. I would like to study them closer." +
           "\n" +
-          "Day 3:" +
+          "Day 3:"/* +
           "\n" +
           "Most of the bugs are normally not offensive and won't attack unless provoked. " +
           "\n" +
@@ -289,7 +289,7 @@ export function map6(world: World) {
           "\n" +
           "I'll try to describe one of those here:" +
           "\n" +
-          "[Entity Spider]:[Health = x, defence = x, magic defence = x, elemental weaknesses: fire, water, (something else?)]"
+          "[Entity Spider]:[Health = x, defence = x, magic defence = x, elemental weaknesses: fire, water, (something else?)]"*/
       );
     })
   );
@@ -735,7 +735,7 @@ export function map19(world: World) {
     tempmap.push(new Tile(stoneWall, false));
   }
 
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 1; i++) {
     for (let i2 = 0; i2 < 1; i2++) {
       tempmap.push(new Tile(stoneWall, false));
     }
