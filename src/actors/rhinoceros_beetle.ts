@@ -34,7 +34,7 @@ export class RhinocerosBeetle extends Enemy {
     this.hp = 150;
     this.def = 30;
     this.attack = 15;
-    this.def_magic = 1;
+    this.def_magic = 20;
     this.magic = 1;
     this.xp = 100;
     this.skills = ["ram"];

@@ -53,6 +53,7 @@ const Images = {
   MedalEye: new ex.ImageSource("./images/MedalStare.png"),
   //skills
   Snow: new ex.ImageSource("./images/Snow.png"),
+  Snowflake: new ex.ImageSource("./images/Snowflake.png"),
   //weapons
   SwordCarrot: new ex.ImageSource("./images/SwordCarrot.png"),
   SwordBaton: new ex.ImageSource("./images/SwordBaton.png"),

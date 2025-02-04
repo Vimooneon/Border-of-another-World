@@ -31,9 +31,9 @@ export class Spider extends Enemy {
     super();
     this.level = level;
     this.hp = 220;
-    this.def = 10;
+    this.def = 15;
     this.attack = 30;
-    this.def_magic = 10;
+    this.def_magic = 15;
     this.magic = 40;
     this.xp = 1000;
     this.skills = ["ice touch", "snow cloud"];
@@ -112,7 +112,7 @@ export class Spider extends Enemy {
       let sn = new Skill();
       this.addChild(sn);
       const heropos = 317;
-      sn.snowCloud(
+      sn.snowFlake(
         this.magic,
         this.buffs,
         1,
@@ -134,7 +134,7 @@ export class Spider extends Enemy {
         let sn = new Skill();
         this.addChild(sn);
         const heropos = 317;
-        let time = sn.snowCloud(
+        let time = sn.snowFlake(
           this.magic,
           this.buffs,
           1,
@@ -151,7 +151,7 @@ export class Spider extends Enemy {
         let sn = new Skill();
         this.addChild(sn);
         const heropos = 317;
-        let time = sn.snowCloud(
+        let time = sn.snowFlake(
           this.magic,
           this.buffs,
           1,

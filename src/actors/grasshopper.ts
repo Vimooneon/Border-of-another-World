@@ -66,7 +66,7 @@ export class Grasshopper extends Enemy {
     this.hp = 100;
     this.def = 10;
     this.attack = 10;
-    this.def_magic = 10;
+    this.def_magic = 20;
     this.magic = 10;
     this.xp = 50;
     this.skills = ["jump"];

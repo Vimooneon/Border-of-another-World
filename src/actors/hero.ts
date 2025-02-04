@@ -116,7 +116,7 @@ export class PlayerInBattle extends Enemy {
     this.def = 30;
     this.attack = 50;
     this.def_magic = 30;
-    this.magic = 45;
+    this.magic = 15;
     this.level = level;
     this.skills = [];
     this.elemental_res = {

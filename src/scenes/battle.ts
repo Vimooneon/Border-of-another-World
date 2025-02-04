@@ -331,7 +331,7 @@ export class BattleScene extends ex.Scene {
         cancel.pos.x += 1500;
         let sn = new Skill();
         this.add(sn);
-        let time = sn.snowCloud(
+        let time = sn.snowFlake(
           this.heroArray[0].magic,
           this.heroArray[0].buffs,
           target,
