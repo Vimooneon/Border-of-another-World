@@ -255,7 +255,7 @@ export function map6(world: World) {
           "\n" +
           "Day 1:" +
           "\n" +
-          "I don't know where I am. It seems upon touching the meteorite i got transfered to this... place." +
+          "I don't know where I am. It seems upon touching the meteorite \n I got transfered to this... place." +
           "\n" +
           "Luckily, I have my journal with me so I can write down the information about this weird place." +
           "\n" +
@@ -526,10 +526,10 @@ export function map13() {
 export function map14(world: World) {
   let tempmap: Tile[] = [];
   for (let i = 0; i < 3; i++) {
-    for (let i2 = 0; i2 < 1; i2++) {
+    for (let i2 = 0; i2 < 2; i2++) {
       tempmap.push(new Tile(stoneWall, false));
     }
-    for (let i2 = 0; i2 < 5; i2++) {
+    for (let i2 = 0; i2 < 4; i2++) {
       tempmap.push(new Tile(grass));
     }
     for (let i2 = 0; i2 < 1; i2++) {
