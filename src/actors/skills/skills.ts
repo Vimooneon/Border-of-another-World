@@ -12,6 +12,16 @@ import { damage } from "../damage";
   },
 });*/
 
+const fireSpriteSheet = ex.SpriteSheet.fromImageSource({
+  image: Images.Fire,
+  grid: {
+    rows: 2,
+    columns: 2,
+    spriteHeight: 376,
+    spriteWidth: 376,
+  },
+});
+
 const animsp = 150;
 
 const snowflake = new ex.Sprite({
@@ -24,6 +34,12 @@ const snowflake = new ex.Sprite({
   },
 });
 
+const fireAnim = ex.Animation.fromSpriteSheet(
+  fireSpriteSheet,
+  ex.range(0, 4),
+  animsp,
+  ex.AnimationStrategy.Loop
+);
 export class Skill extends ex.Actor {
   public dmg: damage = new damage();
 
@@ -71,6 +87,30 @@ export class Skill extends ex.Actor {
     
     this.dealDamage(50, true, "ice", target, inpA, inpB);
     snowclound.actions.rotateBy(rotation/3,  rotationTime, ex.RotationType.Clockwise);
+    this.actions.delay(5 * 150);
+    this.actions.die();
+    return 15 * 150; //animation total time
+  }
+
+  //possible skills:
+  public fire(
+    inpA: number,
+    inpB: { [key: string]: number },
+    target: number,
+    pos: ex.Vector,
+    dmg: damage
+  ) {
+    this.dmg = dmg;
+    let fire = new ex.Actor();
+    this.addChild(fire);
+    fire.pos = pos;
+    fire.graphics.use(snowflake);
+    fire.z=3;
+    this.actions.callMethod(() => {
+      fire.graphics.use(fireAnim).reset();
+    });
+    this.actions.delay(10 * 150);
+    this.dealDamage(50, true, "fire", target, inpA, inpB);
     this.actions.delay(5 * 150);
     this.actions.die();
     return 15 * 150; //animation total time

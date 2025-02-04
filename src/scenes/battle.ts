@@ -346,6 +346,32 @@ export class BattleScene extends ex.Scene {
     });
     this.add(snowcloud);
     this.skill_buttons.push(snowcloud);
+
+    const fire = new Button(370 + 188, 517, true, 0.5, 60, "Fire", () => {
+      for (let i = 0; i < targets.length; i++) {
+        if (!this.enemyArray[i].isKilled()) {
+          targets[i].pos.x -= 1500;
+        }
+      }
+      this.task = (target, pos) => {
+        cancel.pos.x += 1500;
+        let sn = new Skill();
+        this.add(sn);
+        let time = sn.fire(
+          this.heroArray[0].magic,
+          this.heroArray[0].buffs,
+          target,
+          ex.vec(973, pos),
+          this.heroArray[0].dmg
+        );
+        this.heroArray[0].actions.delay(time + 50);
+        //target, pos;
+      };
+      this.hideButtons();
+      cancel.pos.x -= 1500;
+    });
+    this.add(fire);
+    this.skill_buttons.push(fire);
     /* ------------- ------------- -------------*/
     for (let i = 0; i < this.skill_buttons.length; i++) {
       this.skill_buttons[i].pos.x += 1500;
