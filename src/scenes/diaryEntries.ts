@@ -14,7 +14,7 @@ export class Diary extends ex.Scene {
     var wr = new writable();
     wr.graphics.anchor = ex.Vector.Zero;
     wr.pos = ex.vec(25, 50);
-    wr.Write(_context.data as string, 30, 50);
+    wr.Write(_context.data as string, 30, 20);
     this.add(wr);
   }
 }
