@@ -439,6 +439,32 @@ export class BattleScene extends ex.Scene {
     });
     this.add(wind);
     this.skill_buttons.push(wind);
+
+    const tornado = new Button(370 + 188, 717, true, 0.5, 60, "tornado", () => {
+      for (let i = 0; i < targets.length; i++) {
+        if (!this.enemyArray[i].isKilled()) {
+          targets[i].pos.x -= 1500;
+        }
+      }
+      this.task = (target, pos) => {
+        cancel.pos.x += 1500;
+        let sn = new Skill();
+        this.add(sn);
+        let time = sn.tornado(
+          this.heroArray[0].magic,
+          this.heroArray[0].buffs,
+          target,
+          ex.vec(973, pos),
+          this.heroArray[0].dmg
+        );
+        this.heroArray[0].actions.delay(time + 50);
+        //target, pos;
+      };
+      this.hideButtons();
+      cancel.pos.x -= 1500;
+    });
+    this.add(tornado);
+    this.skill_buttons.push(tornado);
     /* ------------- ------------- -------------*/
     for (let i = 0; i < this.skill_buttons.length; i++) {
       this.skill_buttons[i].pos.x += 1500;

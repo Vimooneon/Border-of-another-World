@@ -32,6 +32,16 @@ const lightningSpriteSheet = ex.SpriteSheet.fromImageSource({
   },
 });
 
+const tornadoSpriteSheet = ex.SpriteSheet.fromImageSource({
+  image: Images.Tornado,
+  grid: {
+    rows: 1,
+    columns: 2,
+    spriteHeight: 376,
+    spriteWidth: 376,
+  },
+});
+
 const animsp = 150;
 
 const snowflake = new ex.Sprite({
@@ -58,6 +68,12 @@ const lightningAnim = ex.Animation.fromSpriteSheet(
   ex.AnimationStrategy.End
 );
 
+const tornadoAnim = ex.Animation.fromSpriteSheet(
+  tornadoSpriteSheet,
+  ex.range(0, 1),
+  animsp,
+  ex.AnimationStrategy.Loop
+);
 
 export class Skill extends ex.Actor {
   public dmg: damage = new damage();
@@ -150,6 +166,28 @@ export class Skill extends ex.Actor {
     });
     this.actions.delay(10 * 150);
     this.dealDamage(50, true, "lightning", target, inpA, inpB);
+    this.actions.delay(5 * 150);
+    this.actions.die();
+    return 15 * 150; //animation total time
+  }
+
+  public tornado(
+    inpA: number,
+    inpB: { [key: string]: number },
+    target: number,
+    pos: ex.Vector,
+    dmg: damage
+  ) {
+    this.dmg = dmg;
+    let tornado = new ex.Actor();
+    this.addChild(tornado);
+    tornado.pos = pos;
+    tornado.z=3;
+    this.actions.callMethod(() => {
+      tornado.graphics.use(tornadoAnim).reset();
+    });
+    this.actions.delay(10 * 150);
+    this.dealDamage(50, true, "wind", target, inpA, inpB);
     this.actions.delay(5 * 150);
     this.actions.die();
     return 15 * 150; //animation total time

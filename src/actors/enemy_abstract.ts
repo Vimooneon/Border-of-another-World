@@ -115,9 +115,12 @@ export class Enemy extends ex.Actor {
     /* ---------------- ---------------- ---------------- */
 
     //if elements does not exist in the resistance table => assume resistance is 0%
-    if (!this.elemental_res[el] == undefined) {
+    console.log(this.elemental_res[el], el)
+    if (!(this.elemental_res[el] == undefined)) {
       dmg -= (dmg * this.elemental_res[el]) / 100;
+      console.log(dmg, (dmg * this.elemental_res[el]) / 100)
     }
+    console.log(dmg)
     if (magic) {
       dmg =
         dmg / (this.def_magic + (this.def_magic * this.buffs["defM"]) / 100);

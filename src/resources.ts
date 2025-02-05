@@ -57,6 +57,7 @@ const Images = {
   Fire: new ex.ImageSource("./images/Fire.png"),
   Lightning: new ex.ImageSource("./images/LightningBolt.png"),
   Wind: new ex.ImageSource("./images/WindShield.png"),
+  Tornado: new ex.ImageSource("./images/Tornado.png"),
   //weapons
   SwordCarrot: new ex.ImageSource("./images/SwordCarrot.png"),
   SwordBaton: new ex.ImageSource("./images/SwordBaton.png"),
