@@ -62,8 +62,13 @@ export class BattleScene extends ex.Scene {
     if (this.turn == 2) {
       //turn 2 - enemy turn; each alive enemy uses a skill
       if (this.heroArray[0].actions.getQueue().isComplete()) {
+        let target = 1;
+        if (this.heroArray[0].hasStatusEffect("wind_shield")) {
+          this.enemyArray.forEach((e, i, _) => {if (!e.isKilled() && i!=0){target=4+i}})
+        }
         if (!this.enemyArray[0].isKilled()) {
-          this.enemyArray[0].useSkill();
+          this.enemyArray[0].useSkill(target);
+          this.enemyArray[0].actions.callMethod(()=>{this.heroArray[0].decreaseStatusEffect("wind_shield");})
         }
         this.turn = 2.5;
       }
@@ -81,7 +86,14 @@ export class BattleScene extends ex.Scene {
           //next alive enemy uses it's attack
           this.enemyCounter++;
           if (!this.enemyArray[this.enemyCounter].isKilled()) {
-            this.enemyArray[this.enemyCounter].useSkill();
+            let target = 1;
+            if (this.heroArray[0].hasStatusEffect("wind_shield")) {
+              this.enemyArray.forEach((e, i, _) => {if (!e.isKilled() && i!=this.enemyCounter){target=4+i}})
+            }
+            if (!this.enemyArray[0].isKilled()) {
+              this.enemyArray[this.enemyCounter].useSkill(target);
+              this.enemyArray[this.enemyCounter].actions.callMethod(()=>{this.heroArray[0].decreaseStatusEffect("wind_shield");})
+            }
           }
         } else {
           //at the end of the turn decrease all buffs and return to turn 1
@@ -372,6 +384,39 @@ export class BattleScene extends ex.Scene {
     });
     this.add(fire);
     this.skill_buttons.push(fire);
+
+    const lightning = new Button(370 + 188, 567, true, 0.5, 60, "lightning", () => {
+      for (let i = 0; i < targets.length; i++) {
+        if (!this.enemyArray[i].isKilled()) {
+          targets[i].pos.x -= 1500;
+        }
+      }
+      this.task = (target, pos) => {
+        cancel.pos.x += 1500;
+        let sn = new Skill();
+        this.add(sn);
+        let time = sn.lightning(
+          this.heroArray[0].magic,
+          this.heroArray[0].buffs,
+          target,
+          ex.vec(973, pos),
+          this.heroArray[0].dmg
+        );
+        this.heroArray[0].actions.delay(time + 50);
+        //target, pos;
+      };
+      this.hideButtons();
+      cancel.pos.x -= 1500;
+    });
+    this.add(lightning);
+    this.skill_buttons.push(lightning);
+
+    const wind = new Button(370 + 188, 617, true, 0.5, 60, "wind", () => {
+      this.heroArray[0].addStatusEffect("wind_shield");
+      this.turn = 1.5;
+    });
+    this.add(wind);
+    this.skill_buttons.push(wind);
     /* ------------- ------------- -------------*/
     for (let i = 0; i < this.skill_buttons.length; i++) {
       this.skill_buttons[i].pos.x += 1500;

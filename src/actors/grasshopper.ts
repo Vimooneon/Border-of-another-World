@@ -96,7 +96,7 @@ export class Grasshopper extends Enemy {
     }
   }
 
-  public jump() {
+  public jump(target: number) {
     var jumpAnim = ex.Animation.fromSpriteSheet(
       grasshopperJumpSpriteSheet,
       ex.range(0, 11),
@@ -141,7 +141,7 @@ export class Grasshopper extends Enemy {
     });
     //damage is dealt the moment grasshopper jumps back
     this.actions.callMethod(() => {
-      this.dealDamage(60, false, "fire", 1);
+      this.dealDamage(60, false, "fire", target);
     });
     this.actions.rotateBy(Math.PI / 4, 100);
     this.actions.easeTo(ex.vec(409, heropos - 20.5), (animsp * 11) / Stops);
@@ -186,7 +186,7 @@ export class Grasshopper extends Enemy {
           texty.actions.fade(0, 600);
           texty.actions.die();
           this.actions.delay(1000);
-          this.useSkill();
+          this.useSkill(target);
         }
       });
     }
@@ -203,16 +203,11 @@ export class Grasshopper extends Enemy {
       this.dmg.target = 0;
     }
 
-    //temporary to test animations
-    if (engine.input.keyboard.wasReleased(ex.Keys.E)) {
-      this.jump();
-    }
-
     super.update(engine, delta);
   }
 
-  public useSkill(): void {
-    this.jump();
+  public useSkill(target: number): void {
+    this.jump(target);
     var idleAnim = ex.Animation.fromSpriteSheet(
       grasshopperIdleSpriteSheet,
       ex.range(0, 3),

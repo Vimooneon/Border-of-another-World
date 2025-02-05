@@ -51,7 +51,7 @@ export class RhinocerosBeetle extends Enemy {
     this.leveledStats(this.level);
   }
 
-  public ram() {
+  public ram(target: number) {
     const walkAnim = ex.Animation.fromSpriteSheet(
       rhinocerosBeetleSpriteSheet,
       ex.range(0, 8),
@@ -75,7 +75,7 @@ export class RhinocerosBeetle extends Enemy {
     });
     this.actions.delay(5 * animsp2);
     this.actions.callMethod(() => {
-      this.dealDamage(50, false, "water", 1);
+      this.dealDamage(50, false, "water", target);
     });
     this.actions.delay(5 * animsp2);
     this.actions.callMethod(() => {
@@ -97,14 +97,10 @@ export class RhinocerosBeetle extends Enemy {
       this.takeDamage(this.dmg.amount, this.dmg.magic, this.dmg.element);
       this.dmg.target = 0;
     }
-    //temporary to test animations
-    if (engine.input.keyboard.wasReleased(ex.Keys.R)) {
-      this.ram();
-    }
     super.update(engine, delta);
   }
 
-  public useSkill(): void {
-    this.ram();
+  public useSkill(target: number): void {
+    this.ram(target);
   }
 }

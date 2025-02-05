@@ -9,6 +9,25 @@ const infoDefault = new ex.Sprite({
   image: Images.Info,
 });
 
+const windSpriteSheet = ex.SpriteSheet.fromImageSource({
+  image: Images.Wind,
+  grid: {
+    rows: 2,
+    columns: 2,
+    spriteHeight: 376,
+    spriteWidth: 376,
+  },
+});
+
+const animsp = 150;
+
+const windAnim = ex.Animation.fromSpriteSheet(
+  windSpriteSheet,
+  ex.range(0, 4),
+  animsp,
+  ex.AnimationStrategy.Loop
+);
+
 export class Enemy extends ex.Actor {
   public target = 0; //gives a target number for the enemy so it could be attacked
   public hp = 0; //health points of the enemy
@@ -29,6 +48,7 @@ export class Enemy extends ex.Actor {
     def: 0,
     defM: 0,
   };
+  public stat_effects: { [key: string]: number } = {}; //map of enemy current status effects
 
   //scales normal stats to the given level
   public leveledStats(level: number) {
@@ -168,7 +188,9 @@ export class Enemy extends ex.Actor {
   }
 
   //abstract method that will use defined skills for each enemy
-  public useSkill() {}
+  public useSkill(target: number) {
+    target;
+  }
 
   //used at the start of the battle and each time it's heroes turn
   //adds question mark, when mouse hovers => give info about enemy: HP, level and elemental resistance
@@ -214,5 +236,38 @@ export class Enemy extends ex.Actor {
       entityRemoveArr[1].unparent();
       entityRemoveArr[0].unparent();
     }
+  }
+
+  public addStatusEffect(effect: string) {
+    if(isNaN(this.stat_effects[effect]) || this.stat_effects[effect]==0 ){
+      this.stat_effects[effect]=1;
+      if (effect=="wind_shield"){
+        let wind = new ex.Actor();
+        this.addChild(wind);
+        const heropos = 317;
+        wind.pos = ex.vec(221 - this.pos.x, heropos - this.pos.y);
+        wind.z=3;
+        this.actions.callMethod(() => {
+          wind.graphics.use(windAnim).reset();
+        });
+        wind.on('preupdate', (_) =>{if(this.stat_effects["wind_shield"]<1){wind.kill()}})
+      }
+    }else{
+      this.stat_effects[effect]+=1;
+    }
+  }
+
+  public decreaseStatusEffect(effect: string) {
+    if(isNaN(this.stat_effects[effect]) || this.stat_effects[effect]==0){
+    }else{
+      this.stat_effects[effect]-=1;
+    }
+  }
+
+  public hasStatusEffect(effect: string){
+    if (this.stat_effects[effect]>0){
+      return true;
+    }
+    return false;
   }
 }
