@@ -396,7 +396,7 @@ export class BattleScene extends ex.Scene {
         let sn = new Skill();
         this.add(sn);
         let time = sn.lightning(
-          this.heroArray[0].magic,
+          this.heroArray[0].magic*4,
           this.heroArray[0].buffs,
           target,
           ex.vec(973, pos),
@@ -410,6 +410,28 @@ export class BattleScene extends ex.Scene {
     });
     this.add(lightning);
     this.skill_buttons.push(lightning);
+
+    const storm = new Button(370 + 188, 667, true, 0.5, 60, "storm", () => {
+      for (let i = 0; i < this.enemyArray.length; i++) {
+      this.heroArray[0].actions.callMethod(()=>{
+        if (!this.enemyArray[i].isKilled()) {
+          let sn = new Skill();
+        this.add(sn);
+        let time = sn.lightning(
+          this.heroArray[0].magic,
+          this.heroArray[0].buffs,
+          4+i,
+          ex.vec(973, this.enemyArray[i].pos.y),
+          this.heroArray[0].dmg
+        );
+        this.heroArray[0].actions.delay(time/this.enemyArray.length + 50);
+        }
+      })
+      }
+      this.turn = 1.5;
+    });
+    this.add(storm);
+    this.skill_buttons.push(storm);
 
     const wind = new Button(370 + 188, 617, true, 0.5, 60, "wind", () => {
       this.heroArray[0].addStatusEffect("wind_shield");
