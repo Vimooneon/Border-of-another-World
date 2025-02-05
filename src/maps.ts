@@ -647,16 +647,46 @@ export function map18(world: World) {
     tempmap.push(new Tile(stoneWall, false));
   }
   //row 2
-  for (let i2 = 0; i2 < 6; i2++) {
+  for (let i2 = 0; i2 < 4; i2++) {
     tempmap.push(new Tile(grass));
   }
-  for (let i2 = 0; i2 < 1; i2++) {
+  for (let i2 = 0; i2 < 3; i2++) {
     tempmap.push(new Tile(stoneWall, false));
   }
   //row 3
-  for (let i2 = 0; i2 < 5; i2++) {
+  for (let i2 = 0; i2 < 4; i2++) {
     tempmap.push(new Tile(grass));
   }
+  tempmap.push(new Tile(grass, false, Images.Moth.toSprite(), (tile: Tile) => {
+    
+    let achv = world.engine.scenes["achievements"] as Achievements;
+    let defeatedBee = achv.hasAchievement("Pest control");
+    if(defeatedBee){
+      tile.graphics.layers.get("foreground").hide();
+      tile.makeWalkable();
+    }else{
+      let wr = new writable();
+      wr.fcolor = ex.Color.White;
+      wr.pos = ex.vec(597, 800);
+      world.add(wr);
+      wr.Write(
+        "I am Moth, the guardian of this lever, \n defeat the bee if you want to go further",
+        40,
+        30
+      );
+      wr.actions.delay(3000);
+      wr.actions.fade(0, 500);
+      wr.actions.die();
+
+/*
+      Sounds.battle1.volume = 1;
+      Sounds.battle1.play();
+      world.Wave(
+        new Wave(new Moth(15)).enemies,
+        tile
+      );*/
+    }
+  }));
   tempmap.push(
     new Tile(grass, false, Images.Button.toSprite(), (t) => {
       t.makeWalkable();
@@ -688,10 +718,10 @@ export function map18(world: World) {
     tempmap.push(new Tile(stoneWall, false));
   }
   //row 4
-  for (let i2 = 0; i2 < 6; i2++) {
+  for (let i2 = 0; i2 < 4; i2++) {
     tempmap.push(new Tile(grass));
   }
-  for (let i2 = 0; i2 < 1; i2++) {
+  for (let i2 = 0; i2 < 3; i2++) {
     tempmap.push(new Tile(stoneWall, false));
   }
   //row 5

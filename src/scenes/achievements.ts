@@ -54,6 +54,20 @@ export class Achievements extends ex.Scene {
     }
   }
 
+  public hasAchievement(achv: string){
+    for (let i = 0; i < this.achievemnt_list.length; i++) {
+      if (this.achievemnt_list[i].name == achv) {
+        //checks if achievement already was acquired
+        if (this.achievemnt_list[i].acquired) {
+          return true;
+        }else{
+          return false;
+        }
+      }
+    }
+    return false;
+  }
+
   //Initializes all achievements
   public Init() {
     this.achievemnt_list.push(

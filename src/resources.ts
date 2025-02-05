@@ -33,6 +33,7 @@ const Images = {
   RhinocerosBeetle: new ex.ImageSource("./images/RhinoBeetle.png"),
   Bee: new ex.ImageSource("./images/Bee.png"),
   Spider: new ex.ImageSource("./images/Spider.png"),
+  Moth: new ex.ImageSource("./images/Moth.png"),
   //utilitie
   Button: new ex.ImageSource("./images/Button.png"),
   Target: new ex.ImageSource("./images/Target.png"),
