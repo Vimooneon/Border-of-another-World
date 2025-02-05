@@ -418,7 +418,7 @@ export class BattleScene extends ex.Scene {
           let sn = new Skill();
         this.add(sn);
         let time = sn.lightning(
-          this.heroArray[0].magic,
+          this.heroArray[0].magic/3,
           this.heroArray[0].buffs,
           4+i,
           ex.vec(973, this.enemyArray[i].pos.y),
