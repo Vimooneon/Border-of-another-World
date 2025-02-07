@@ -123,6 +123,23 @@ export class World extends ex.Scene {
       _engine.goToScene("achievements", 2);
     });
     this.add(medals);
+
+    var w = new Button(288, 734, false, 0.5, 60, "^", () => {
+      this.hero.vel.y = -10000;
+    });
+    this.add(w);
+    var a = new Button(100, 784, false, 0.5, 60, "<", () => {
+      this.hero.vel.x = -10000;
+    });
+    this.add(a);
+    var s = new Button(288, 784, false, 0.5, 60, "v", () => {
+      this.hero.vel.y = 10000;
+    });
+    this.add(s);
+    var d = new Button(288+188, 784, false, 0.5, 60, ">", () => {
+      this.hero.vel.x = 10000;
+    });
+    this.add(d);
   }
 
   onPostUpdate(_engine: ex.Engine, _delta: number): void {
