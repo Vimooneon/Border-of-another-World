@@ -18,6 +18,7 @@ import { swordBaton } from "../actors/swords";
 
 //const sidemove = (2388-world1.tileSize*11);
 //const upmove = (1668-world1.tileSize*8);
+var waveInAction: boolean = false;
 
 export class Wave {
   public enemies: Enemy[] = [];
@@ -108,6 +109,8 @@ export class World extends ex.Scene {
   public worldMap: Tile[][] = [];
   public lastWave?: Tile;
 
+
+
   onInitialize(_engine: ex.Engine): void {
     //generates the world map
     this.WorldGenerator();
@@ -187,6 +190,7 @@ export class World extends ex.Scene {
         achv.getAchievement("Leg day", this);
       }
     }
+    waveInAction = false;
   }
 
 
@@ -233,6 +237,10 @@ export class World extends ex.Scene {
 
   //starts a battle, might consider moving this method to the Tile object again
   public Wave(enemyArray: Enemy[], tile: Tile) {
+    if (waveInAction){
+      return;
+    }
+    waveInAction = true;
     Sounds.world1.volume = 0.75;
 
     let heroAndEnemyArray: Enemy[] = [];
