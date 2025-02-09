@@ -90,7 +90,7 @@ export class BattleScene extends ex.Scene {
             if (this.heroArray[0].hasStatusEffect("wind_shield")) {
               this.enemyArray.forEach((e, i, _) => {if (!e.isKilled() && i!=this.enemyCounter){target=4+i}})
             }
-            if (!this.enemyArray[0].isKilled()) {
+            if (!this.enemyArray[this.enemyCounter].isKilled()) {
               this.enemyArray[this.enemyCounter].useSkill(target);
               this.enemyArray[this.enemyCounter].actions.callMethod(()=>{this.heroArray[0].decreaseStatusEffect("wind_shield");})
             }
