@@ -32,8 +32,8 @@ export class Bee extends Enemy {
     this.level = level;
     this.hp = 150;
     this.def = 15;
-    this.attack = 50;
-    this.def_magic = 15;
+    this.attack = 500;
+    this.def_magic = 5;
     this.magic = 30;
     this.xp = 100;
     this.skills = ["fly"];
