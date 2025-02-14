@@ -261,9 +261,9 @@ export function map6(world: World) {
           "\n" +
           "Day 2:" +
           "\n" +
-          "It seems this world is inhabited by enormous bugs. I would like to study them closer." +
+          "It seems this world is inhabited by enormous bugs. I would like to study them closer."/* +
           "\n" +
-          "Day 3:" /*+
+          "Day 3:" +
           "\n" +
           "Most of the bugs are normally not offensive and won't attack unless provoked. " +
           "\n" +
