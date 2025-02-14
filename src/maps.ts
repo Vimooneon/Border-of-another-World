@@ -257,13 +257,13 @@ export function map6(world: World) {
           "\n" +
           "I don't know where I am. It seems upon touching the meteorite \n I got transfered to this... place." +
           "\n" +
-          "Luckily, I have my journal with me so I can write down the information about this weird place." +
+          "Luckily, I have my journal with me so I can write down the information \n about this weird place." +
           "\n" +
           "Day 2:" +
           "\n" +
           "It seems this world is inhabited by enormous bugs. I would like to study them closer." +
           "\n" +
-          "Day 3:"/* +
+          "Day 3:" /*+
           "\n" +
           "Most of the bugs are normally not offensive and won't attack unless provoked. " +
           "\n" +
