@@ -288,6 +288,7 @@ const playerSpeed = 450;
 const rotateSpeed = 1000; //((Math.PI / 180) * 1000) / animsp
 
 export class PlayerOutside extends ex.Actor {
+  public direction = 0;
   public health = 100;
 
   constructor() {
@@ -321,7 +322,8 @@ export class PlayerOutside extends ex.Actor {
     this.vel.y = 0;
     if (
       engine.input.keyboard.isHeld(ex.Keys.W) ||
-      engine.input.keyboard.isHeld(ex.Keys.Up)
+      engine.input.keyboard.isHeld(ex.Keys.Up) ||
+      (this.direction == 1)
     ) {
       this.graphics.use(walkChibiAnim);
       stand = heroChibiDefault
@@ -329,7 +331,8 @@ export class PlayerOutside extends ex.Actor {
     }
     if (
       engine.input.keyboard.isHeld(ex.Keys.S) ||
-      engine.input.keyboard.isHeld(ex.Keys.Down)
+      engine.input.keyboard.isHeld(ex.Keys.Down)||
+      (this.direction == 3)
     ) {
       this.graphics.use(walkChibiAnim);
       stand = heroChibiDefault
@@ -337,7 +340,8 @@ export class PlayerOutside extends ex.Actor {
     }
     if (
       engine.input.keyboard.isHeld(ex.Keys.D) ||
-      engine.input.keyboard.isHeld(ex.Keys.Right)
+      engine.input.keyboard.isHeld(ex.Keys.Right)||
+      (this.direction == 4)
     ) {
       this.vel.x = 1;
       this.graphics.use(walkChibiRightAnim)
@@ -345,7 +349,8 @@ export class PlayerOutside extends ex.Actor {
     }
     if (
       engine.input.keyboard.isHeld(ex.Keys.A) ||
-      engine.input.keyboard.isHeld(ex.Keys.Left)
+      engine.input.keyboard.isHeld(ex.Keys.Left)||
+      (this.direction == 2)
     ) {
       this.vel.x = -1;
       stand = heroChibiLeftDefault

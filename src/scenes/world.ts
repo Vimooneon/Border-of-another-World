@@ -109,7 +109,7 @@ export class World extends ex.Scene {
   public worldMap: Tile[][] = [];
   public lastWave?: Tile;
 
-
+  public direction: number = 0;
 
   onInitialize(_engine: ex.Engine): void {
     //generates the world map
@@ -128,24 +128,37 @@ export class World extends ex.Scene {
     this.add(medals);
 
     var w = new Button(288, 734, false, 0.5, 60, "^", () => {
-      this.hero.vel.y = -10000;
+      this.direction = 0;
     });
+    w.on("pointerdown", ()=>{
+      this.direction = 1;
+    })
     this.add(w);
     var a = new Button(100, 784, false, 0.5, 60, "<", () => {
-      this.hero.vel.x = -10000;
+      this.direction = 0;
     });
+    a.on("pointerdown", ()=>{
+      this.direction = 2;
+    })
     this.add(a);
     var s = new Button(288, 784, false, 0.5, 60, "v", () => {
-      this.hero.vel.y = 10000;
+      this.direction = 0;
     });
+    s.on("pointerdown", ()=>{
+      this.direction = 3;
+    })
     this.add(s);
     var d = new Button(288+188, 784, false, 0.5, 60, ">", () => {
-      this.hero.vel.x = 10000;
+      this.direction = 0;
     });
+    d.on("pointerdown", ()=>{
+      this.direction = 4;
+    })
     this.add(d);
   }
 
   onPostUpdate(_engine: ex.Engine, _delta: number): void {
+    this.hero.direction=this.direction;
     //if player is outside game screen coordinates -> move him to the next "room"
     //"room" is a 5(height)*7(width) tiles large map
     if (this.hero.pos.x > 1194) {
