@@ -127,28 +127,28 @@ export class World extends ex.Scene {
     });
     this.add(medals);
 
-    var w = new Button(288, 684, false, 0.5, 60, "^", () => {
+    var w = new Button(288, 674, false, 0.5, 60, "^", () => {
       this.direction = 0;
     });
     w.on("pointerdown", ()=>{
       this.direction = 1;
     })
     this.add(w);
-    var a = new Button(100, 734, false, 0.5, 60, "<", () => {
+    var a = new Button(100, 724, false, 0.5, 60, "<", () => {
       this.direction = 0;
     });
     a.on("pointerdown", ()=>{
       this.direction = 2;
     })
     this.add(a);
-    var s = new Button(288, 734, false, 0.5, 60, "v", () => {
+    var s = new Button(288, 724, false, 0.5, 60, "v", () => {
       this.direction = 0;
     });
     s.on("pointerdown", ()=>{
       this.direction = 3;
     })
     this.add(s);
-    var d = new Button(288+188, 734, false, 0.5, 60, ">", () => {
+    var d = new Button(288+188, 724, false, 0.5, 60, ">", () => {
       this.direction = 0;
     });
     d.on("pointerdown", ()=>{
