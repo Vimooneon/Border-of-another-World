@@ -198,6 +198,9 @@ export class BattleScene extends ex.Scene {
 
   public Background(world: number) {
     //      backgrounds
+    if (world > 6) {
+      world = 1
+    }
     if (world == 1) {
       // Plains -> done
       const plains = new background.Plains();
@@ -253,7 +256,7 @@ export class BattleScene extends ex.Scene {
     //      buttons
 
     //cancels current attack/skill => removes "target buttons" and brings back all other buttons
-    const cancel = new Button(370, 417, true, 0.5, 60, "Cancel", () => {
+    const cancel = new Button(370, 417, false, 0.5, 60, "Cancel", () => {
       cancel.pos.x += 1500;
       for (let i = 0; i < targets.length; i++) {
         targets[i].pos.x += 1500;
@@ -264,7 +267,7 @@ export class BattleScene extends ex.Scene {
     cancel.pos.x += 1500;
 
     //regular attack
-    const attack = new Button(370, 417, true, 0.5, 60, "Attack", () => {
+    const attack = new Button(370, 417, false, 0.5, 60, "Attack", () => {
       for (let i = 0; i < targets.length; i++) {
         if (!this.enemyArray[i].isKilled()) {
           targets[i].pos.x -= 1500;
@@ -281,7 +284,7 @@ export class BattleScene extends ex.Scene {
     this.buttons.push(attack);
 
     /* ------------- tactics block ------------- */
-    const block = new Button(370 + 188, 467, true, 0.5, 60, "Block", () => {
+    const block = new Button(370 + 188, 467, false, 0.5, 60, "Block", () => {
       //currently: gives player 50% buff of both: def and defM
       this.heroArray[0].block();
       this.turn = 1.5;
@@ -333,7 +336,7 @@ export class BattleScene extends ex.Scene {
     /* ------------- ------------- -------------*/
 
     /* ------------- skills block -------------*/
-    const snowcloud = new Button(370 + 188, 467, true, 0.5, 60, "Snow", () => {
+    const snowcloud = new Button(370 + 188, 467, false, 0.5, 60, "Snow", () => {
       for (let i = 0; i < targets.length; i++) {
         if (!this.enemyArray[i].isKilled()) {
           targets[i].pos.x -= 1500;
@@ -359,7 +362,7 @@ export class BattleScene extends ex.Scene {
     this.add(snowcloud);
     this.skill_buttons.push(snowcloud);
 
-    const fire = new Button(370 + 188, 517, true, 0.5, 60, "Fire", () => {
+    const fire = new Button(370 + 188, 517, false, 0.5, 60, "Fire", () => {
       for (let i = 0; i < targets.length; i++) {
         if (!this.enemyArray[i].isKilled()) {
           targets[i].pos.x -= 1500;
@@ -385,7 +388,7 @@ export class BattleScene extends ex.Scene {
     this.add(fire);
     this.skill_buttons.push(fire);
 
-    const lightning = new Button(370 + 188, 567, true, 0.5, 60, "lightning", () => {
+    const lightning = new Button(370 + 188, 567, false, 0.5, 60, "lightning", () => {
       for (let i = 0; i < targets.length; i++) {
         if (!this.enemyArray[i].isKilled()) {
           targets[i].pos.x -= 1500;
@@ -411,7 +414,7 @@ export class BattleScene extends ex.Scene {
     this.add(lightning);
     this.skill_buttons.push(lightning);
 
-    const storm = new Button(370 + 188, 667, true, 0.5, 60, "storm", () => {
+    const storm = new Button(370 + 188, 667, false, 0.5, 60, "storm", () => {
       for (let i = 0; i < this.enemyArray.length; i++) {
       this.heroArray[0].actions.callMethod(()=>{
         if (!this.enemyArray[i].isKilled()) {
@@ -433,14 +436,14 @@ export class BattleScene extends ex.Scene {
     this.add(storm);
     this.skill_buttons.push(storm);
 
-    const wind = new Button(370 + 188, 617, true, 0.5, 60, "wind", () => {
+    const wind = new Button(370 + 188, 617, false, 0.5, 60, "wind", () => {
       this.heroArray[0].addStatusEffect("wind_shield");
       this.turn = 1.5;
     });
     this.add(wind);
     this.skill_buttons.push(wind);
 
-    const tornado = new Button(370 + 188, 717, true, 0.5, 60, "tornado", () => {
+    const tornado = new Button(370 + 188, 717, false, 0.5, 60, "tornado", () => {
       for (let i = 0; i < targets.length; i++) {
         if (!this.enemyArray[i].isKilled()) {
           targets[i].pos.x -= 1500;
