@@ -11,6 +11,7 @@ import { Difficulty } from "./scenes/difficulty";
 import { World } from "./scenes/world";
 import { Diary } from "./scenes/diaryEntries";
 import { Stats } from "./scenes/stats";
+import { EncodedAppScene } from "./scenes/encodedApp";
 
 //sadly had to decrease the initial planned size (scale = 1)
 const scale = 0.5;
@@ -30,6 +31,7 @@ class Game extends Engine {
     this.addScene("world", new World());
     this.addScene("diary", new Diary());
     this.addScene("stats", new Stats());
+    this.addScene("app", new EncodedAppScene());
     this.goToScene("menu");
   }
 }

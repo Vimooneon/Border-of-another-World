@@ -23,7 +23,7 @@ export class Difficulty extends ex.Scene {
     this.add(difficulty);
 
     const play = new Button(597, 500, true, 0.5, 60, "Play", () => {
-      _engine.goToScene("world");
+      _engine.goToScene("app", "Welcome to BoaW, my name is 3nc0d3d \nThe game is still heavily work in progress, so stuff may break \nThanks for trying out the game and hope you have fun!");
     });
     this.add(play);
 

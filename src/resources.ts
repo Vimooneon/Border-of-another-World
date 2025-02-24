@@ -43,6 +43,7 @@ const Images = {
   ClockArrow: new ex.ImageSource("./images/Clock_arrow2.png"),
   ClockD: new ex.ImageSource("./images/ClockD.png"),
   ClockArrowD: new ex.ImageSource("./images/Clock_arrowD.png"),
+  EncodedApp: new ex.ImageSource("./images/3nc0d3dApp.png"),
   //medals
   MedalBronze: new ex.ImageSource("./images/MedalBronze.png"),
   MedalSilver: new ex.ImageSource("./images/MedalSilver.png"),
