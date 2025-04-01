@@ -33,6 +33,7 @@ class Game extends Engine {
     this.addScene("stats", new Stats());
     this.addScene("app", new EncodedAppScene());
     this.goToScene("menu");
+    //window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ"); //this is only a thing for april fools
   }
 }
 
